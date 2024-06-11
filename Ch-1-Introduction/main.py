@@ -8,3 +8,5 @@ f2.show()
 f1.__add__(f2).show()
 
 f1.__sub__(f2).show()
+
+f1.__mul__(f2).show()

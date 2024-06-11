@@ -26,7 +26,7 @@ class Fraction:
             n = oldm % oldn
         return n
 
-    def __add__(self, otherFraction: 'Fraction'):
+    def __add__(self, otherFraction: 'Fraction') -> 'Fraction':
         newNumerator = (self.__numerator * otherFraction.getDen() +
                         self.__denominator * otherFraction.getNum())
 
@@ -40,8 +40,12 @@ class Fraction:
 
         return firstNum == secondNum
 
-    def __sub__(self, other: 'Fraction'):
+    def __sub__(self, other: 'Fraction') -> 'Fraction':
         newNumerator = (self.__numerator * other.getDen()) - (other.getNum() *
                                                               self.__denominator)
         newDenominator = self.__denominator * other.getDen()
         return Fraction(newNumerator, newDenominator)
+
+    def __mul__(self, other: 'Fraction') -> 'Fraction':
+        return Fraction(self.__numerator * other.getNum(), self.__denominator
+                        * other.getDen())
