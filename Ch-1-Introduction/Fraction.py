@@ -1,23 +1,23 @@
 class Fraction:
-    def __init__(self, numerator: float, denominator: float):
+    def __init__(self, numerator: int, denominator: int):
         commonDivisor = self.gcd(numerator, denominator)
-        self.numerator = numerator / commonDivisor
-        self.denominator = denominator / commonDivisor
+        self.__numerator = int(numerator / commonDivisor)
+        self.__denominator = int(denominator / commonDivisor)
 
-    def getNum(self) -> float:
-        return self.numerator
+    def getNum(self) -> int:
+        return self.__numerator
 
-    def getDen(self) -> float:
-        return self.denominator
+    def getDen(self) -> int:
+        return self.__denominator
 
     def __str__(self) -> str:
-        return str(self.numerator) + "/" + str(self.denominator)
+        return str(self.__numerator) + "/" + str(self.__denominator)
 
     def show(self):
-        print(self.numerator, "/", self.denominator)
+        print(self.__numerator, "/", self.__denominator)
 
     @staticmethod
-    def gcd(m: float, n: float) -> int:
+    def gcd(m: int, n: int) -> int:
         while m % n != 0:
             oldm = m
             oldn = n
@@ -26,16 +26,22 @@ class Fraction:
             n = oldm % oldn
         return n
 
-    def __add__(self, otherfraction: 'Fraction') -> 'Fraction':
-        newNumerator = (self.numerator * otherfraction.denominator +
-                        self.denominator * otherfraction.numerator)
+    def __add__(self, otherFraction: 'Fraction'):
+        newNumerator = (self.__numerator * otherFraction.getDen() +
+                        self.__denominator * otherFraction.getNum())
 
-        newDenominator = self.denominator * otherfraction.denominator
+        newDenominator = self.__denominator * otherFraction.getDen()
 
         return Fraction(newNumerator, newDenominator)
 
-    def __eq__(self, other) -> bool:
-        firstNum = self.numerator * other.denominator
-        secondNum = other.numerator * self.denominator
+    def __eq__(self, other: 'Fraction') -> bool:
+        firstNum = self.__numerator * other.getDen()
+        secondNum = other.getNum() * self.__denominator
 
         return firstNum == secondNum
+
+    def __sub__(self, other: 'Fraction'):
+        newNumerator = (self.__numerator * other.getDen()) - (other.getNum() *
+                                                              self.__denominator)
+        newDenominator = self.__denominator * other.getDen()
+        return Fraction(newNumerator, newDenominator)
